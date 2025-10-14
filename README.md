@@ -33,3 +33,26 @@ Ran all test suites.
 
 Je crée un dossier `.github/workflows` à la racine du projet et j'ajoute un fichier `ci-cd.yml` pour automatiser les tests avec GitHub Actions.
 ![alt text](images/first-workflow.png)
+
+## Github Pages
+
+Je modifie `.github/workflows/ci-cd.yml` pour ajouter un workflow qui déploie automatiquement le site sur GitHub Pages depuis le dossier `./pages` à chaque push sur la branche main.
+
+[LIEN DE LA PAGE](https://pouletdesmers.github.io/projet---citations/)
+
+ligne ajouter:
+```yml
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./pages
+```
