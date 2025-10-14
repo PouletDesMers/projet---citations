@@ -2,7 +2,9 @@
 
 Lien du repository : [ICI](https://github.com/PouletDesMers/projet---citations)
 
-apres avoir creer un repository sur github, on clone le repository sur notre machine locale avec la commande `git clone https://github.com/PouletDesMers/projet---citations`
+Après avoir créé un repository sur GitHub, clonez-le sur votre machine locale avec la commande :  
+`git clone https://github.com/PouletDesMers/projet---citations`  
+Ensuite, dans les paramètres du repository sur GitHub, vérifiez que les options "Allow GitHub Actions to create and approve pull requests" et "Allow all actions and reusable workflows" sont activées pour pouvoir utiliser les workflows.
 
 ## Installation
 
@@ -26,3 +28,8 @@ Snapshots:   0 total
 Time:        0.682 s
 Ran all test suites.
 ```
+
+## Workflows
+
+Je crée un dossier `.github/workflows` à la racine du projet et j'ajoute un fichier `ci-cd.yml` pour automatiser les tests avec GitHub Actions.
+![alt text](images/first-workflow.png)
