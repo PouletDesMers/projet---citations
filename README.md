@@ -128,3 +128,13 @@ jobs:
 ## Améliorations possibles
 * Ajouter une interface utilisateur plus sophistiquée avec du CSS.
 * Permettre aux utilisateurs de soumettre leurs propres citations.
+
+## Questions
+- Quelle est la différence entre intégration continue et déploiement continu ?
+  - L’intégration continue (CI) consiste à fusionner régulièrement le code et à tester automatiquement, tandis que le déploiement continu (CD) automatise la mise en production du code testé.
+- Pourquoi les tests unitaires sont-ils essentiels avant chaque déploiement ?
+  - Ils garantissent que chaque composant fonctionne correctement avant de déployer, évitant les bugs en production.
+- Comment sécuriser les workflows CI/CD publics ?
+  - Limiter les secrets, utiliser des tokens avec permissions minimales, vérifier les contributions externes (PR) avant exécution.
+- Quels sont les avantages d’un déploiement automatisé pour un projet d’équipe ?
+  - Gain de temps, moins d’erreurs humaines, livraison rapide et fiable, meilleure collaboration en équipe.
