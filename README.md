@@ -27,8 +27,8 @@ Le projet est organisé de la façon suivante :
 projet---citations/
 ├── app.js                # Code principal
 ├── test/
-│   └── app.test.js       # Tests unitaires avec Jest
-├── index.html            # Fichier HTML pour le déploiement GitHub Pages
+│   ├── index.html            # Fichier HTML pour le déploiement GitHub Pages
+│   └── app.test.js           # Tests unitaires avec Jest
 └── .github/
     └── workflows/
         └── ci-cd.yml     # Pipeline CI/CD
