@@ -1,58 +1,108 @@
-# projet---citations
+Parfait ✅ Voici la version **Markdown propre et naturelle**, prête à copier directement dans ton fichier **`README.md`** :
 
-Lien du repository : [ICI](https://github.com/PouletDesMers/projet---citations)
+---
 
-Après avoir créé un repository sur GitHub, clonez-le sur votre machine locale avec la commande :  
-`git clone https://github.com/PouletDesMers/projet---citations`  
-Ensuite, dans les paramètres du repository sur GitHub, vérifiez que les options "Allow GitHub Actions to create and approve pull requests" et "Allow all actions and reusable workflows" sont activées pour pouvoir utiliser les workflows.
+# Projet — Citations
 
-## Installation
+## Objectif du projet
 
-Après le clone je me rends dans le dossier du projet avec la commande `cd projet---citations` et j'initialise le projet avec la commande `npm init -y` puis j'installe jest pour les tests avec la commande `npm install --save-dev jest` et je modifie le fichier package.json pour ajouter `"test": "jest"`.
+Le but de ce projet est de créer une application simple qui affiche aléatoirement des citations.
+L’objectif principal est d’apprendre à :
 
-## Utilisation
+* Structurer un projet Node.js,
+* Mettre en place des tests unitaires avec **Jest**,
+* Configurer une intégration continue (**CI/CD**) avec **GitHub Actions**,
+* Et déployer automatiquement le site sur **GitHub Pages**.
 
-en fesant `npm test` on obtient 
-```sh
-projet---citations main  ? ✗ npm test
+🔗 [Lien du repository](https://github.com/PouletDesMers/projet---citations)
+🌐 [Lien de la page déployée](https://pouletdesmers.github.io/projet---citations/)
 
-> projet---citations@1.0.0 test
-> jest
+---
 
- PASS  test/app.test.js
-  ✓ La fonction retourne une citation (6 ms)
+## 🧱 Structure du code
 
-Test Suites: 1 passed, 1 total
-Tests:       1 passed, 1 total
-Snapshots:   0 total
-Time:        0.682 s
-Ran all test suites.
+Le projet est organisé de la façon suivante :
+
+```
+projet---citations/
+├── app.js                # Code principal
+├── test/
+│   └── app.test.js       # Tests unitaires avec Jest
+├── index.html            # Fichier HTML pour le déploiement GitHub Pages
+└── .github/
+    └── workflows/
+        └── ci-cd.yml     # Pipeline CI/CD
 ```
 
-## Workflows
+### Installation
 
-Je crée un dossier `.github/workflows` à la racine du projet et j'ajoute un fichier `ci-cd.yml` pour automatiser les tests avec GitHub Actions.
-![alt text](images/first-workflow.png)
+```bash
+git clone https://github.com/PouletDesMers/projet---citations
+cd projet---citations
+npm init -y
+npm install --save-dev jest
+```
 
-## Github Pages
+Ensuite, dans le fichier `package.json`, ajoute la ligne suivante :
 
-Je modifie `.github/workflows/ci-cd.yml` pour ajouter un workflow qui déploie automatiquement le site sur GitHub Pages depuis le dossier `./pages` à chaque push sur la branche main.
+```json
+"test": "jest"
+```
 
-[LIEN DE LA PAGE](https://pouletdesmers.github.io/projet---citations/)
+Pour lancer les tests :
 
-ligne ajouter:
+```bash
+npm test
+```
+
+---
+
+## Description du pipeline CI/CD
+
+Le pipeline est configuré avec **GitHub Actions**.
+Il comprend deux étapes principales :
+
+1. **Tests automatiques** :
+   Chaque fois qu’un commit est poussé, les tests Jest sont exécutés automatiquement pour s’assurer que tout fonctionne.
+
+2. **Déploiement automatique** :
+   Si les tests réussissent et que la branche est `main`, le site est déployé sur **GitHub Pages** depuis le dossier `pages/`.
+   ![image du workflow](images/first-workflow.png)
+
+## Déploiement sur GitHub Pages
+
+Le déploiement sur GitHub Pages est automatisé grâce à GitHub Actions. Lorsque les tests sont réussis, le site est déployé à partir du fichier `index.html`.
+
+![image du déploiement](images/workflow-pages.png)
+
+### Ajout dans le fichier `ci-cd.yml`
+
 ```yml
-  deploy:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+deploy:
+  needs: build-and-test
+  runs-on: ubuntu-latest
+  if: github.ref == 'refs/heads/main'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./src
 ```
+
+---
+
+## Difficultés rencontrées
+
+* Configuration des permissions GitHub Actions pour autoriser les déploiements.
+* Compréhension du fonctionnement des workflows et de leurs dépendances.
+* Ajustement du dossier de build pour que le déploiement fonctionne correctement sur GitHub Pages.
+
+---
+
+## Améliorations possibles
+* Ajouter une interface utilisateur plus sophistiquée avec du CSS.
+* Permettre aux utilisateurs de soumettre leurs propres citations.
