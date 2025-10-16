@@ -60,33 +60,59 @@ Il comprend deux étapes principales :
 
 1. **Tests automatiques** :
    Chaque fois qu’un commit est poussé, les tests Jest sont exécutés automatiquement pour s’assurer que tout fonctionne.
-
-2. **Déploiement automatique** :
-   Si les tests réussissent et que la branche est `main`, le site est déployé sur **GitHub Pages** depuis le dossier `pages/`.
    ![image du workflow](images/first-workflow.png)
 
-## Déploiement sur GitHub Pages
+2. **Déploiement automatique** :
+   Si les tests réussissent et que la branche est `main`, le site est déployé sur **GitHub Pages** depuis le dossier `src/`.
+  ![image du déploiement](images/workflow-pages.png)
 
-Le déploiement sur GitHub Pages est automatisé grâce à GitHub Actions. Lorsque les tests sont réussis, le site est déployé à partir du fichier `index.html`.
 
-![image du déploiement](images/workflow-pages.png)
-
-### Ajout dans le fichier `ci-cd.yml`
+### Visualisation du fichier `ci-cd.yml`
 
 ```yml
-deploy:
-  needs: build-and-test
-  runs-on: ubuntu-latest
-  if: github.ref == 'refs/heads/main'
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+name: CI/CD Node.js - Générateur de citations
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./src
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./src
 ```
 
 ---
