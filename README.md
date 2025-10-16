@@ -1,7 +1,3 @@
-Parfait ✅ Voici la version **Markdown propre et naturelle**, prête à copier directement dans ton fichier **`README.md`** :
-
----
-
 # Projet — Citations
 
 ## Objectif du projet
